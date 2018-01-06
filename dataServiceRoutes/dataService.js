@@ -14,6 +14,8 @@ router.get('/users', userService.getUsers);
 router.post('/user', userService.createUser);
 router.put('/user/:id', userService.updateUser);
 router.delete('/user/:id', userService.deleteUser);
+//router.post('/authenticate',userService.authenticateUser);
+router.get('/authenticate/:id/:pwd',userService.authenticateUser);
 
 router.get('/village/:id', villageService.getVillage);
 router.get('/villages', villageService.getVillages);
