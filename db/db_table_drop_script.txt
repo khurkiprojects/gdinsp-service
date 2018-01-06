@@ -1,0 +1,14 @@
+CREATE SCHEMA `db_gdinsp` DEFAULT CHARACTER SET utf8 ;
+
+
+DROP TABLE IF EXISTS `checklist`;
+DROP TABLE IF EXISTS `checkpoint`;
+DROP TABLE IF EXISTS `inspection`;
+DROP TABLE IF EXISTS `inspection_checkpoints`;
+DROP TABLE IF EXISTS `inspection_institutions`;
+DROP TABLE IF EXISTS `institution`;
+DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `village`;
+DROP TABLE IF EXISTS `village_group`;
+DROP TABLE IF EXISTS `village_group_map`;
+
