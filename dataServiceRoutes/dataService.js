@@ -15,8 +15,8 @@ router.get('/users', dataServiceHelper.isClientSubscriptionValid, userService.ge
 router.post('/user', dataServiceHelper.isClientSubscriptionValid, userService.createUser);
 router.put('/user/:id', dataServiceHelper.isClientSubscriptionValid, userService.updateUser);
 router.delete('/user/:id', dataServiceHelper.isClientSubscriptionValid, userService.deleteUser);
-//router.post('/authenticate', dataServiceHelper.isClientSubscriptionValid,userService.authenticateUser);
-router.get('/authenticate/:id/:pwd', dataServiceHelper.isClientSubscriptionValid,userService.authenticateUser);
+router.post('/authenticate', dataServiceHelper.isClientSubscriptionValid,userService.authenticateUser);
+//router.get('/authenticate/:id/:pwd', dataServiceHelper.isClientSubscriptionValid,userService.authenticateUser);
 
 router.get('/village/:id', dataServiceHelper.isClientSubscriptionValid, villageService.getVillage);
 router.get('/villages', dataServiceHelper.isClientSubscriptionValid, villageService.getVillages);

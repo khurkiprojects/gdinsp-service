@@ -26,6 +26,9 @@ module.exports = {
     DB_QUERY_TYPES:{
         INSERT:"I", UPDATE:"U",LIST:"L",DELETE:"D"
     },
-    DBCONFIG:{CLIENTKEY:"CLIENTKEY"}
+    DBCONFIG:{CLIENTKEY:"CLIENTKEY"},
+    ERRORS:{
+        REQ_PARAM_MISSING:404
+    }
 
 }

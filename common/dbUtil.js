@@ -51,7 +51,7 @@ function executeQuery(query, params, queryType){
             }
           }
           else{
-              console.log('Error while performing Query.');
+              console.log('Error while performing Query.', err);
               reject(util.getFailureResponse(err))
           }
           closeDBConn(conn);
