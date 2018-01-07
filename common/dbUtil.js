@@ -1,5 +1,5 @@
 
-var mysql      = require('mysql');
+var mysql = require('mysql');
 
 var constants = require('./../common/constants');
 var util = require('./../common/util');
@@ -19,37 +19,68 @@ function closeDBConn(connection){
     }
 }
 
-function executeQuery(query, params){
-     return new Promise(function(resolve, reject) {
+function executeQuery(query, params, queryType){
+    return new Promise(function(resolve, reject) {
+
+      var conn=createDBConn();
     
-    var conn=createDBConn();
-  
-    conn.connect(function(err) {
-    console.log(query, params);
-      conn.query(query, params, function(err, rows, fields) {
-        if (!err){
-          console.log('User Count: ', rows.length);
-          if(rows.length>0){
-            console.log('Matched');
-            resolve(util.getSuccessResponse(rows));
+      conn.connect(function(err) {
+        console.log(query, params);
+
+        conn.query(query, params, function(err, result, fields) {
+          if (!err){
+            if(queryType===constants.DB_QUERY_TYPES.LIST && result.length>0){
+              console.log('Data Found',result.length);
+              resolve(util.getSuccessResponse(result));
+            }
+            else if(queryType===constants.DB_QUERY_TYPES.INSERT){
+              console.log('Record Created');
+              resolve(util.getSuccessResponse({affectedRows:result.affectedRows}));
+            }
+            else if(queryType===constants.DB_QUERY_TYPES.UPDATE){
+              console.log('Records Updated');
+              resolve(util.getSuccessResponse({affectedRows:result.affectedRows}));
+            }
+            else if(queryType===constants.DB_QUERY_TYPES.DELETE){
+              console.log('Records Deleted');
+              resolve(util.getSuccessResponse({affectedRows:result.affectedRows}));
+            }
+            else{
+              console.log('Error in query type.', queryType);
+              reject(util.getFailureResponse({"message":"Invalid Query!"}));
+            }
           }
           else{
-            console.log('Error while performing Query.');
-            reject(util.getFailureResponse({"message":"No Data Found!"}));
+              console.log('Error while performing Query.');
+              reject(util.getFailureResponse(err))
           }
-        }
-        else{
-            console.log('Error while performing Query.');
-            reject(util.getFailureResponse(err))
-        }
-        closeDBConn(conn);
-       });
-    });
+          closeDBConn(conn);
+        });
+      });
   });
+}
+
+function insertRecord(query, params){
+    return executeQuery(query, params, constants.DB_QUERY_TYPES.INSERT);
+}
+
+function updateRecord(query, params){
+   return executeQuery(query, params, constants.DB_QUERY_TYPES.UPDATE);
+}
+
+function deleteRecord(query, params){
+   return executeQuery(query, params, constants.DB_QUERY_TYPES.DELETE);
+}
+
+function searchRecords(query, params){
+   return executeQuery(query, params, constants.DB_QUERY_TYPES.LIST);
 }
 
 module.exports={
     createDBConn:createDBConn,
     closeDBConn:closeDBConn,
-    executeQuery
+    insertRecord:insertRecord,
+    updateRecord:updateRecord,
+    deleteRecord:deleteRecord,
+    searchRecords:searchRecords
 };

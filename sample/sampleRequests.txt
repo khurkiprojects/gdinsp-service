@@ -1,0 +1,68 @@
+
+Get User By Id
+==================================
+Request Type: GET
+URL: localhost:9900/api/user/1
+
+Headers
+{
+    "clientkey":"123456"
+}
+
+Create User
+==================================
+Request Type: POST
+URL: localhost:9900/api/user
+
+Headers
+{
+    "clientkey":"123456"
+}
+
+Body
+{
+            "name": "test",
+            "title": "Mr.",
+            "designation": "Admin",
+            "role": 3,
+            "loginId": "test",
+            "pwd": "123456",
+            "updatedBy": 1,
+            "updateTS": null,
+            "state": 1
+}
+
+Update User
+==================================
+Request Type: PUT
+URL: localhost:9900/api/user/11
+
+Headers
+{
+    "clientkey":"123456"
+}
+
+Body
+{
+            "name": "test",
+            "title": "Ms.",
+            "designation": "Admin",
+            "role": 3,
+            "loginId": "test",
+            "pwd": "123456",
+            "updatedBy": 1,
+            "updateTS": null,
+            "state": 1
+}
+
+Delete User By Id
+==================================
+Request Type: DELETE
+
+URL: localhost:9900/api/user/1
+
+
+Headers
+{
+    "clientkey":"123456"
+}
