@@ -1,56 +1,101 @@
 var util = require('./../common/util');
 
 function getChecklist(req, res, next) {
-  var data=[{name:"Checklist 1"}, {name:"Checklist 2"}];
+  if(!serviceHelper.areRequiredParamsPresent(req.params, ['id'])){
+    return;
+  }
 
-  res.json(data);
-  
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKLIST.GETCHECKLISTBYID, [req.params.id], res,constants.DB_QUERY_TYPES.LIST);
 }
 
 function getChecklists(req, res, next) {
-  var data=[{name:"Checklist 1"}, {name:"Checklist 2"}];
-
-  res.json(data);
-  
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKLIST.GETALLCHECKLISTS, [], res,constants.DB_QUERY_TYPES.LIST);
 }
 
 function createChecklist(req, res, next) {
-  var data=[{name:"Checklist 1"}, {name:"Checklist 2"}];
+  var paramNames=["name", "desc", "instType", "updatedBy", "state"];
 
-  res.json(util.getSuccessResponse({}));
+  if(!serviceHelper.areRequiredParamsPresent(req.body, paramNames, res)){
+    return;
+  }
+
+  var paramData=[req.body.name, req.body.desc, req.body.instType, req.body.updatedBy, req.body.updatedTS, req.body.state];
+
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKLIST.INSERTCHECKLIST, paramData,constants.DB_QUERY_TYPES.INSERT);
 }
 
 function updateChecklist(req, res, next) {
-  var data=[{name:"Checklist 1"}, {name:"Checklist 2"}];
+  var paramNames=["name", "desc", "instType", "updatedBy", "state"];
 
-  res.json(util.getSuccessResponse({}));
+  if(!serviceHelper.areRequiredParamsPresent(req.body, paramNames, res)){
+    return;
+  }
+
+  var id=req.params.id;
+  var paramData=[req.body.name, req.body.desc, req.body.instType, req.body.updatedBy, req.body.updatedTS, req.body.state, id];
+
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKLIST.UPDATECHECKLISTBYID, paramData,constants.DB_QUERY_TYPES.UPDATE);
 }
 
 
 function deleteChecklist(req, res, next) {
-  var data=[{name:"Checklist 1"}, {name:"Checklist 2"}];
+  if(!serviceHelper.areRequiredParamsPresent(req.params, ['id'], res)){
+    return;
+  }
 
-  res.json(util.getSuccessResponse({}));
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKLIST.DELCHECKLISTBYID, [req.params.id], constants.DB_QUERY_TYPES.UPDATE);
 }
 
 
 function getCheckpoints(req, res, next) {
-  var data=[{name:"Checkpoint 1"}, {name:"Checkpoint 2"}];
+  if(!serviceHelper.areRequiredParamsPresent(req.params, ['id'])){
+    return;
+  }
 
-  res.json(data);
-  
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKPOINT.GETCHECKPOINTBYID, [req.params.id], res,constants.DB_QUERY_TYPES.LIST);
 }
 
 function createCheckpoint(req, res, next) {
-  res.json(util.getSuccessResponse({}));
+  var paramNames=["name", "desc", "checklistId", "dataType", "updatedBy", "state"];
+
+  if(!serviceHelper.areRequiredParamsPresent(req.body, paramNames, res)){
+    return;
+  }
+
+  var paramData=[req.body.name, req.body.desc, req.body.checklistId, req.body.dataType, 
+  req.body.updatedBy, req.body.updatedTS, req.body.state];
+
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKPOINT.INSERTCHECKPOINT, paramData,constants.DB_QUERY_TYPES.INSERT);
 }
 
 function updateCheckpoint(req, res, next) {
-  res.json(util.getSuccessResponse({}));
+  var paramNames=["name", "desc", "checklistId", "dataType", "updatedBy", "state"];
+
+  if(!serviceHelper.areRequiredParamsPresent(req.body, paramNames, res)){
+    return;
+  }
+
+  var id=req.params.id;
+  var paramData=[req.body.name, req.body.desc, req.body.checklistId, req.body.dataType, 
+  req.body.updatedBy, req.body.updatedTS, req.body.state, id];
+
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKPOINT.UPDATECHECKPOINTBYID, paramData,constants.DB_QUERY_TYPES.UPDATE);
 }
 
-function deletePoint(req, res, next) {
-  res.json(util.getSuccessResponse({}));
+function deleteCheckpoint(req, res, next) {
+  if(!serviceHelper.areRequiredParamsPresent(req.params, ['id'], res)){
+    return;
+  }
+
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKPOINT.DELCHECKPOINTID, [req.params.id], constants.DB_QUERY_TYPES.DELETE);
+}
+
+function deleteCheckpoints(req, res, next) {
+  if(!serviceHelper.areRequiredParamsPresent(req.params, ['id'], res)){
+    return;
+  }
+
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKPOINT.DELCHECKPOINTSBYCHECKLISTID, [req.params.id], constants.DB_QUERY_TYPES.DELETE);
 }
 
 module.exports = {
@@ -62,5 +107,6 @@ module.exports = {
     getCheckpoints:getCheckpoints,
     createCheckpoint:createCheckpoint,
     updateCheckpoint:updateCheckpoint,
-    deletePoint:deletePoint
+    deleteCheckpoint:deleteCheckpoint,
+    deleteCheckpoints:deleteCheckpoints
 };

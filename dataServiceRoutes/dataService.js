@@ -16,7 +16,6 @@ router.post('/user', dataServiceHelper.isClientSubscriptionValid, userService.cr
 router.put('/user/:id', dataServiceHelper.isClientSubscriptionValid, userService.updateUser);
 router.delete('/user/:id', dataServiceHelper.isClientSubscriptionValid, userService.deleteUser);
 router.post('/authenticate', dataServiceHelper.isClientSubscriptionValid,userService.authenticateUser);
-//router.get('/authenticate/:id/:pwd', dataServiceHelper.isClientSubscriptionValid,userService.authenticateUser);
 
 router.get('/village/:id', dataServiceHelper.isClientSubscriptionValid, villageService.getVillage);
 router.get('/villages', dataServiceHelper.isClientSubscriptionValid, villageService.getVillages);
@@ -33,6 +32,7 @@ router.delete('/villageGroup/:id', dataServiceHelper.isClientSubscriptionValid, 
 router.get('/vgVillages/:vgId', dataServiceHelper.isClientSubscriptionValid, villageGroupService.getVillageGroupVillages);
 router.post('/vgVillage', dataServiceHelper.isClientSubscriptionValid, villageGroupService.addVillageGroupVillage);
 router.delete('/vgVillage/:id', dataServiceHelper.isClientSubscriptionValid, villageGroupService.deleteVillageGroupVillage);
+router.delete('/vgVillages/:id', dataServiceHelper.isClientSubscriptionValid, villageGroupService.deleteVillageGroupVillages);
 
 router.get('/institution/:id', dataServiceHelper.isClientSubscriptionValid, institutionService.getInstitution);
 router.get('/institutions', dataServiceHelper.isClientSubscriptionValid, institutionService.getInstitutions);
@@ -49,7 +49,8 @@ router.delete('/checklist/:id', dataServiceHelper.isClientSubscriptionValid, che
 router.get('/checkpoints/:checklistId', dataServiceHelper.isClientSubscriptionValid, checklistService.getCheckpoints);
 router.post('/checkpoint', dataServiceHelper.isClientSubscriptionValid, checklistService.createCheckpoint);
 router.put('/checkpoint/:id', dataServiceHelper.isClientSubscriptionValid, checklistService.updateCheckpoint);
-router.delete('/checkpoint/:id', dataServiceHelper.isClientSubscriptionValid, checklistService.deletePoint);
+router.delete('/checkpoint/:id', dataServiceHelper.isClientSubscriptionValid, checklistService.deleteCheckpoint);
+router.delete('/checkpoints/:id', dataServiceHelper.isClientSubscriptionValid, checklistService.deleteCheckpoints);
 
 router.get('/inspection/:id', dataServiceHelper.isClientSubscriptionValid, inspectionService.getInspection);
 router.get('/inspections', dataServiceHelper.isClientSubscriptionValid, inspectionService.getInspections);

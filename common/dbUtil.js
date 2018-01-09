@@ -5,14 +5,14 @@ var constants = require('./../common/constants');
 var util = require('./../common/util');
 
 function createDBConn(){
-    var connection = mysql.createConnection(constants.DB);
+    var connection = mysql.createPool(constants.DB);
     
     return connection;
 }
 
 function closeDBConn(connection){
     try{
-        connection.end();
+        connection.release();
         console.log("Connection closed");
     }catch(err){
         console.log("Error: ", err);
@@ -24,10 +24,12 @@ function executeQuery(query, params, queryType){
 
       var conn=createDBConn();
     
-      conn.connect(function(err) {
+      conn.getConnection(function(err, connection) {
         console.log(query, params);
 
-        conn.query(query, params, function(err, result, fields) {
+        connection.query(query, params, function(err, result) {
+          closeDBConn(connection);
+
           if (!err){
             if(queryType===constants.DB_QUERY_TYPES.LIST && result.length>0){
               console.log('Data Found',result.length);
@@ -54,7 +56,6 @@ function executeQuery(query, params, queryType){
               console.log('Error while performing Query.', err);
               reject(util.getFailureResponse(err))
           }
-          closeDBConn(conn);
         });
       });
   });

@@ -9,9 +9,7 @@ function getUser(req, res, next) {
     return;
   }
 
-  var userId=req.params.id;
-
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.GETUSERBYID, [userId], res,constants.DB_QUERY_TYPES.LIST);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.GETUSERBYID, [req.params.id], res,constants.DB_QUERY_TYPES.LIST);
 
 }
 
@@ -21,11 +19,11 @@ function authenticateUser(req, res, next){
     return;
   }
 
-  var userId=req.body.loginId;
+  var loginId=req.body.loginId;
   var userPwd=req.body.pwd;
 
   try{
-      var p = dbUtil.searchRecords(constants.DB_QUERIES.USER.GETUSERBYLOGINID, [userId]);
+      var p = dbUtil.searchRecords(constants.DB_QUERIES.USER.GETUSERBYLOGINID, [loginId]);
       
       p.then(function(value) {
         if(value.result[0].PASSWORD===userPwd){
@@ -60,10 +58,10 @@ function createUser(req, res, next) {
     return;
   }
 
-  var userData=[req.body.name, req.body.title, req.body.designation, req.body.role, 
+  var paramData=[req.body.name, req.body.title, req.body.designation, req.body.role, 
   req.body.loginId, req.body.pwd, req.body.updatedBy, req.body.updatedTS, req.body.state];
 
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.INSERTUSER, userData,constants.DB_QUERY_TYPES.INSERT);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.INSERTUSER, paramData,constants.DB_QUERY_TYPES.INSERT);
 }
 
 function updateUser(req, res, next) {
@@ -74,11 +72,11 @@ function updateUser(req, res, next) {
     return;
   }
 
-  var userId=req.params.id;
-  var userData=[req.body.name, req.body.title, req.body.designation, req.body.role, 
-  req.body.loginId, req.body.pwd, req.body.updatedBy, req.body.updatedTS, req.body.state, userId];
+  var id=req.params.id;
+  var paramData=[req.body.name, req.body.title, req.body.designation, req.body.role, 
+  req.body.loginId, req.body.pwd, req.body.updatedBy, req.body.updatedTS, req.body.state, id];
 
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.UPDATEUSERBYID, userData,constants.DB_QUERY_TYPES.UPDATE);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.UPDATEUSERBYID, paramData,constants.DB_QUERY_TYPES.UPDATE);
 
 }
 
@@ -89,9 +87,7 @@ function deleteUser(req, res, next) {
     return;
   }
 
-  var userId=req.params.id;
-
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.DELUSERBYID, userId, constants.DB_QUERY_TYPES.UPDATE);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.DELUSERBYID, [req.params.id], constants.DB_QUERY_TYPES.UPDATE);
 }
 
 module.exports = {
