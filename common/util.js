@@ -1,6 +1,6 @@
 var constants = require('./../common/constants');
-//var SHA256 = require("crypto-js/sha256");
-var SHA256 = require("sha256");
+var SHA256 = require("crypto-js/sha256");
+//var SHA256 = require("sha256");
 
 function getSuccessResponse(data){
     var res={status:constants.RESULTS.SUCCESS,result:data};
@@ -38,7 +38,7 @@ function getFailureResponse(failureCode, data){
 function getHash(data){
     if(data===undefined || data==='')
         return '';
-    var hash=SHA256(data);
+    var hash=SHA256(data).toString();
     console.log("Hash output",hash);
     return hash;
 }
@@ -47,7 +47,7 @@ function compareHash(data, hashData){
     if(data===undefined || data==='' || hashData===undefined || hashData==='')
         return false;
 
-    var hash=SHA256(data);
+    var hash=SHA256(data).toString();
     var result=(hashData===hash);
     console.log("Hash output",result);
     return result;
