@@ -54,7 +54,7 @@ function executeQuery(query, params, queryType){
           }
           else{
               console.log('Error while performing Query.', err);
-              reject(util.getFailureResponse(err))
+              reject(util.getFailureResponse(constants.ERRORS.SQL_QUERY_ERROR, err));
           }
         });
       });

@@ -16,6 +16,12 @@ function handleRequest(res, query, params, queryType){
             p = dbUtil.searchRecords(query, params);
         else if(queryType===constants.DB_QUERY_TYPES.DELETE)
             p = dbUtil.deleteRecord(query, params);
+
+        if(p===undefined){
+            console.log("Error Occurred: Query type didn't match");  
+            res.json(util.getFailureResponse("Query type didn't match"));
+            return;    
+        }
         
         p.then(function(value) {
             console.log("Success!", JSON.stringify(value));

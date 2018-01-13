@@ -5,12 +5,12 @@ function getVillageGroup(req, res, next) {
     return;
   }
 
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE_GROUP.GETVILLAGEGROUPID, [req.params.id], res,constants.DB_QUERY_TYPES.LIST);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE_GROUP.GETVILLAGEGROUPID, [req.params.id],constants.DB_QUERY_TYPES.LIST);
   
 }
 
 function getVillageGroups(req, res, next) {
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE_GROUP.GETALLVILLAGES, [], res,constants.DB_QUERY_TYPES.LIST);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE_GROUP.GETALLVILLAGES, [],constants.DB_QUERY_TYPES.LIST);
 }
 
 function createVillageGroup(req, res, next) {
@@ -20,7 +20,7 @@ function createVillageGroup(req, res, next) {
     return;
   }
 
-  var paramData=[req.body.name, req.body.officerId, req.body.updatedBy, req.body.updatedTS, req.body.state];
+  var paramData=[req.body.name, req.body.officerId, req.body.updatedBy, req.body.state];
 
   serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE_GROUP.INSERTVILLAGEGROUP, paramData,constants.DB_QUERY_TYPES.INSERT);
 }
@@ -33,7 +33,7 @@ function updateVillageGroup(req, res, next) {
   }
 
   var id=req.params.id;
-  var paramData=[req.body.name, req.body.officerId, req.body.updatedBy, req.body.updatedTS, req.body.state, id];
+  var paramData=[req.body.name, req.body.officerId, req.body.updatedBy, req.body.state, id];
 
   serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE_GROUP.UPDATEVILLAGEGROUPBYID, paramData,constants.DB_QUERY_TYPES.UPDATE);
 }
@@ -52,7 +52,7 @@ function getVillageGroupVillages(req, res, next) {
     return;
   }
 
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE_GROUP.GETVGVILLAGESBYID, [req.params.id], res,constants.DB_QUERY_TYPES.LIST);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE_GROUP_MAP.GETVGVILLAGESBYID, [req.params.id],constants.DB_QUERY_TYPES.LIST);
 }
 
 function addVillageGroupVillage(req, res, next) {
@@ -62,9 +62,9 @@ function addVillageGroupVillage(req, res, next) {
     return;
   }
 
-  var paramData=[req.body.villageGroupId, req.body.villageId, req.body.updatedBy, req.body.updatedTS, req.body.state];
+  var paramData=[req.body.villageGroupId, req.body.villageId, req.body.updatedBy, req.body.state];
 
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE_GROUP.INSERTVGVILLAGE, paramData,constants.DB_QUERY_TYPES.INSERT);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE_GROUP_MAP.INSERTVGVILLAGE, paramData,constants.DB_QUERY_TYPES.INSERT);
 }
 
 function deleteVillageGroupVillage(req, res, next) {
@@ -72,7 +72,7 @@ function deleteVillageGroupVillage(req, res, next) {
     return;
   }
 
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE_GROUP.DELVGVILLAGEBYID, [req.params.id], constants.DB_QUERY_TYPES.DELETE);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE_GROUP_MAP.DELVGVILLAGEBYID, [req.params.id], constants.DB_QUERY_TYPES.DELETE);
 }
 
 function deleteVillageGroupVillages(req, res, next) {
@@ -80,7 +80,7 @@ function deleteVillageGroupVillages(req, res, next) {
     return;
   }
 
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE_GROUP.DELVGVILLAGESBYVGID, [req.params.id], constants.DB_QUERY_TYPES.DELETE);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE_GROUP_MAP.DELVGVILLAGESBYVGID, [req.params.id], constants.DB_QUERY_TYPES.DELETE);
 }
 
 module.exports = {

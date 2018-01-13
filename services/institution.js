@@ -5,12 +5,12 @@ function getInstitution(req, res, next) {
     return;
   }
 
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.INSTITUTION.GETINSTITUTIONBYID, [req.params.id], res,constants.DB_QUERY_TYPES.LIST);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.INSTITUTION.GETINSTITUTIONBYID, [req.params.id],constants.DB_QUERY_TYPES.LIST);
   
 }
 
 function getInstitutions(req, res, next) {
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.INSTITUTION.GETALLINSTITUTIONS, [], res,constants.DB_QUERY_TYPES.LIST);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.INSTITUTION.GETALLINSTITUTIONS, [],constants.DB_QUERY_TYPES.LIST);
 }
 
 function createInstitution(req, res, next) {
@@ -21,7 +21,7 @@ function createInstitution(req, res, next) {
   }
 
   var paramData=[req.body.name, req.body.villageId, req.body.type, req.body.headName, 
-  req.body.address, req.body.updatedBy, req.body.updatedTS, req.body.state];
+  req.body.address, req.body.updatedBy, req.body.state];
 
   serviceHelper.handleRequest(res, constants.DB_QUERIES.INSTITUTION.INSERTINSTITUTION, paramData,constants.DB_QUERY_TYPES.INSERT);
 }
@@ -35,7 +35,7 @@ function updateInstitution(req, res, next) {
 
   var id=req.params.id;
   var paramData=[req.body.name, req.body.villageId, req.body.type, req.body.headName, 
-  req.body.address, req.body.updatedBy, req.body.updatedTS, req.body.state, id];
+  req.body.address, req.body.updatedBy, req.body.state, id];
 
   serviceHelper.handleRequest(res, constants.DB_QUERIES.INSTITUTION.UPDATEINSTITUTIONBYID, paramData,constants.DB_QUERY_TYPES.UPDATE);
 }

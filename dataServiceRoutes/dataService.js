@@ -14,6 +14,7 @@ router.get('/user/:id', dataServiceHelper.isClientSubscriptionValid, userService
 router.get('/users', dataServiceHelper.isClientSubscriptionValid, userService.getUsers);
 router.post('/user', dataServiceHelper.isClientSubscriptionValid, userService.createUser);
 router.put('/user/:id', dataServiceHelper.isClientSubscriptionValid, userService.updateUser);
+router.put('/userPassword/:id', dataServiceHelper.isClientSubscriptionValid, userService.changePassword);
 router.delete('/user/:id', dataServiceHelper.isClientSubscriptionValid, userService.deleteUser);
 router.post('/authenticate', dataServiceHelper.isClientSubscriptionValid,userService.authenticateUser);
 
@@ -54,6 +55,7 @@ router.delete('/checkpoints/:id', dataServiceHelper.isClientSubscriptionValid, c
 
 router.get('/inspection/:id', dataServiceHelper.isClientSubscriptionValid, inspectionService.getInspection);
 router.get('/inspections', dataServiceHelper.isClientSubscriptionValid, inspectionService.getInspections);
+router.get('/inspectionsByVillageGroup', dataServiceHelper.isClientSubscriptionValid, inspectionService.getInspectionsByVillageGroup);
 router.post('/inspection', dataServiceHelper.isClientSubscriptionValid, inspectionService.createInspection);
 router.put('/inspection/:id', dataServiceHelper.isClientSubscriptionValid, inspectionService.updateInspection);
 router.delete('/inspection/:id', dataServiceHelper.isClientSubscriptionValid, inspectionService.deleteInspection);
@@ -61,9 +63,11 @@ router.delete('/inspection/:id', dataServiceHelper.isClientSubscriptionValid, in
 router.get('/inspInstitutions', dataServiceHelper.isClientSubscriptionValid, inspectionService.getInspInstitutions);
 router.post('/inspInstitutions', dataServiceHelper.isClientSubscriptionValid, inspectionService.createInspInstitutions);
 router.delete('/inspInstitution/:id', dataServiceHelper.isClientSubscriptionValid, inspectionService.deleteInspInstitution);
+router.delete('/inspInstitutionByInspection/:id', dataServiceHelper.isClientSubscriptionValid, inspectionService.deleteInspInstitutionsByInspection);
 
 router.get('/inspCheckpoints', dataServiceHelper.isClientSubscriptionValid, inspectionService.getInspCheckpoints);
 router.post('/inspCheckpoints', dataServiceHelper.isClientSubscriptionValid, inspectionService.createInspCheckpoints);
-router.delete('/inspCheckpoint/:id', dataServiceHelper.isClientSubscriptionValid, inspectionService.deleteInspCheckpoints);
+router.delete('/inspCheckpoint/:id', dataServiceHelper.isClientSubscriptionValid, inspectionService.deleteInspCheckpoint);
+router.delete('/inspCheckpointByInspection/:id', dataServiceHelper.isClientSubscriptionValid, inspectionService.deleteInspCheckpointsByInspection);
 
 module.exports = router;

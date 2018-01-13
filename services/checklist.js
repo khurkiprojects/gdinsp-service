@@ -5,11 +5,11 @@ function getChecklist(req, res, next) {
     return;
   }
 
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKLIST.GETCHECKLISTBYID, [req.params.id], res,constants.DB_QUERY_TYPES.LIST);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKLIST.GETCHECKLISTBYID, [req.params.id],constants.DB_QUERY_TYPES.LIST);
 }
 
 function getChecklists(req, res, next) {
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKLIST.GETALLCHECKLISTS, [], res,constants.DB_QUERY_TYPES.LIST);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKLIST.GETALLCHECKLISTS, [],constants.DB_QUERY_TYPES.LIST);
 }
 
 function createChecklist(req, res, next) {
@@ -19,7 +19,7 @@ function createChecklist(req, res, next) {
     return;
   }
 
-  var paramData=[req.body.name, req.body.desc, req.body.instType, req.body.updatedBy, req.body.updatedTS, req.body.state];
+  var paramData=[req.body.name, req.body.desc, req.body.instType, req.body.updatedBy, req.body.state];
 
   serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKLIST.INSERTCHECKLIST, paramData,constants.DB_QUERY_TYPES.INSERT);
 }
@@ -32,7 +32,7 @@ function updateChecklist(req, res, next) {
   }
 
   var id=req.params.id;
-  var paramData=[req.body.name, req.body.desc, req.body.instType, req.body.updatedBy, req.body.updatedTS, req.body.state, id];
+  var paramData=[req.body.name, req.body.desc, req.body.instType, req.body.updatedBy, req.body.state, id];
 
   serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKLIST.UPDATECHECKLISTBYID, paramData,constants.DB_QUERY_TYPES.UPDATE);
 }
@@ -52,7 +52,7 @@ function getCheckpoints(req, res, next) {
     return;
   }
 
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKPOINT.GETCHECKPOINTBYID, [req.params.id], res,constants.DB_QUERY_TYPES.LIST);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKPOINT.GETCHECKPOINTBYID, [req.params.id],constants.DB_QUERY_TYPES.LIST);
 }
 
 function createCheckpoint(req, res, next) {
@@ -63,7 +63,7 @@ function createCheckpoint(req, res, next) {
   }
 
   var paramData=[req.body.name, req.body.desc, req.body.checklistId, req.body.dataType, 
-  req.body.updatedBy, req.body.updatedTS, req.body.state];
+  req.body.updatedBy, req.body.state];
 
   serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKPOINT.INSERTCHECKPOINT, paramData,constants.DB_QUERY_TYPES.INSERT);
 }
@@ -77,7 +77,7 @@ function updateCheckpoint(req, res, next) {
 
   var id=req.params.id;
   var paramData=[req.body.name, req.body.desc, req.body.checklistId, req.body.dataType, 
-  req.body.updatedBy, req.body.updatedTS, req.body.state, id];
+  req.body.updatedBy, req.body.state, id];
 
   serviceHelper.handleRequest(res, constants.DB_QUERIES.CHECKPOINT.UPDATECHECKPOINTBYID, paramData,constants.DB_QUERY_TYPES.UPDATE);
 }

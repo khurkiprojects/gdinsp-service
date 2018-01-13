@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `db_gdinsp` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `db_gdinsp`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: db_gdinsp
@@ -234,6 +232,7 @@ CREATE TABLE `institution` (
   `TYPE` varchar(50) NOT NULL,
   `HEAD_NAME` varchar(100) NOT NULL,
   `ADDRESS` varchar(500) NOT NULL,
+  `CONTACT` varchar(15) DEFAULT NULL,
   `UPDATED_BY` int(11) DEFAULT NULL,
   `UPDATE_TS` datetime DEFAULT NULL,
   `STATE` int(11) DEFAULT NULL,
@@ -268,12 +267,12 @@ CREATE TABLE `user` (
   `DESIGNATION` varchar(100) NOT NULL,
   `ROLE` int(11) NOT NULL,
   `LOGIN_ID` varchar(100) NOT NULL,
-  `PASSWORD` varchar(20) NOT NULL,
+  `PASSWORD` varchar(65) NOT NULL,
   `UPDATED_BY` int(11) DEFAULT NULL,
   `UPDATE_TS` datetime DEFAULT NULL,
   `STATE` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -282,7 +281,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Admin','Mr.','Admin',3,'admin','123456',0,NULL,1),(11,'test','Ms.','Admin',3,'test','123456',1,NULL,1);
+INSERT INTO `user` VALUES (1,'test15','Mr.','Admin',3,'test','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',1,'2018-01-13 16:47:56',NULL),(11,'test','Ms.','Admin',3,'test','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',1,NULL,1),(13,'test2','Mr.','Clerk',3,'test','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',1,NULL,0),(14,'test16','Mr.','Admin',3,'test','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92',1,'2018-01-13 17:21:53',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -387,4 +386,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-07 17:44:21
+-- Dump completed on 2018-01-13 17:25:08

@@ -49,7 +49,6 @@ Body
             "designation": "Admin",
             "role": 3,
             "loginId": "test",
-            "pwd": "123456",
             "updatedBy": 1,
             "updateTS": null,
             "state": 1

@@ -9,7 +9,7 @@ function getUser(req, res, next) {
     return;
   }
 
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.GETUSERBYID, [req.params.id], res,constants.DB_QUERY_TYPES.LIST);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.GETUSERBYID, [req.params.id], constants.DB_QUERY_TYPES.LIST);
 
 }
 
@@ -26,7 +26,7 @@ function authenticateUser(req, res, next){
       var p = dbUtil.searchRecords(constants.DB_QUERIES.USER.GETUSERBYLOGINID, [loginId]);
       
       p.then(function(value) {
-        if(value.result[0].PASSWORD===userPwd){
+        if(util.compareHash(userPwd, value.result[0].PASSWORD)){
           res.json(util.getSuccessResponse({}));
         }
         else{
@@ -47,7 +47,7 @@ function authenticateUser(req, res, next){
 }
 
 function getUsers(req, res, next) {
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.GETALLUSERS, [], res,constants.DB_QUERY_TYPES.LIST);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.GETALLUSERS, [],constants.DB_QUERY_TYPES.LIST);
 }
 
 function createUser(req, res, next) {
@@ -58,15 +58,17 @@ function createUser(req, res, next) {
     return;
   }
 
+  var currDateTime = new Date();
+
   var paramData=[req.body.name, req.body.title, req.body.designation, req.body.role, 
-  req.body.loginId, req.body.pwd, req.body.updatedBy, req.body.updatedTS, req.body.state];
+  req.body.loginId, util.getHash(req.body.pwd), req.body.updatedBy, req.body.state];
 
   serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.INSERTUSER, paramData,constants.DB_QUERY_TYPES.INSERT);
 }
 
 function updateUser(req, res, next) {
     
-  var paramNames=["name", "title", "designation", "role", "loginId", "pwd", "updatedBy", "state"];
+  var paramNames=["name", "title", "designation", "role", "loginId", "updatedBy", "state"];
 
   if(!serviceHelper.areRequiredParamsPresent(req.body, paramNames, res)){
     return;
@@ -74,10 +76,23 @@ function updateUser(req, res, next) {
 
   var id=req.params.id;
   var paramData=[req.body.name, req.body.title, req.body.designation, req.body.role, 
-  req.body.loginId, req.body.pwd, req.body.updatedBy, req.body.updatedTS, req.body.state, id];
+  req.body.loginId, req.body.updatedBy, req.body.state, id];
 
   serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.UPDATEUSERBYID, paramData,constants.DB_QUERY_TYPES.UPDATE);
+}
 
+function changePassword(req, res, next) {
+    
+  var paramNames=["pwd", "updatedBy"];
+
+  if(!serviceHelper.areRequiredParamsPresent(req.body, paramNames, res)){
+    return;
+  }
+
+  var id=req.params.id;
+  var paramData=[util.getHash(req.body.pwd), req.body.updatedBy, id];
+
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.USER.CHANGEPWDBYID, paramData,constants.DB_QUERY_TYPES.UPDATE);
 }
 
 
@@ -95,6 +110,7 @@ module.exports = {
     getUsers:getUsers,
     createUser:createUser,
     updateUser:updateUser,
+    changePassword:changePassword,
     deleteUser:deleteUser,
     authenticateUser:authenticateUser
 };

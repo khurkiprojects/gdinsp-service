@@ -6,13 +6,13 @@ function getVillage(req, res, next) {
     return;
   }
 
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE.GETVILLAGEBYID, [req.params.id], res,constants.DB_QUERY_TYPES.LIST);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE.GETVILLAGEBYID, [req.params.id],constants.DB_QUERY_TYPES.LIST);
   
 }
 
 function getVillages(req, res, next) {
   
-  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE.GETALLVILLAGES, [], res,constants.DB_QUERY_TYPES.LIST);
+  serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE.GETALLVILLAGES, [],constants.DB_QUERY_TYPES.LIST);
 }
 
 function createVillage(req, res, next) {
@@ -23,7 +23,7 @@ function createVillage(req, res, next) {
   }
 
   var paramData=[req.body.name, req.body.block, req.body.tehsil, req.body.district, 
-  req.body.contact, req.body.updatedBy, req.body.updatedTS, req.body.state];
+  req.body.contact, req.body.updatedBy, req.body.state];
 
   serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE.INSERTVILLAGE, paramData,constants.DB_QUERY_TYPES.INSERT);
 }
@@ -37,7 +37,7 @@ function updateVillage(req, res, next) {
 
   var id=req.params.id;
   var paramData=[req.body.name, req.body.block, req.body.tehsil, req.body.district, 
-  req.body.contact, req.body.updatedBy, req.body.updatedTS, req.body.state, id];
+  req.body.contact, req.body.updatedBy, req.body.state, id];
 
   serviceHelper.handleRequest(res, constants.DB_QUERIES.VILLAGE.UPDATEVILLAGEBYID, paramData,constants.DB_QUERY_TYPES.UPDATE);
 }
